@@ -81,7 +81,7 @@
         let p = document.querySelector('#alertError');
         displayAlert.setAttribute('class', 'alert alert-danger');
         displayAlert.setAttribute('style', 'margin-top:22px');
-        displayAlert.innerHTML = "<strong>Le fichier importé n'a pas pu être importé correctement !</strong><br>Vous ne pouvez paramétrer que le fichier <strong>favretweet.py</strong> ou </strong>config.py</strong>.<br>Si vous avez essayé d'ouvrir l'un de ses fichiers, une erreur est survenue dans sa lecture. Merci de vérifier si le fichier ne contient pas d'erreurs.<br>(Le fichier de configuration doit contenir entre 25 et 30 lignes)"
+        displayAlert.innerHTML = "<strong>Le fichier importé est incorrect !</strong><br>Vous ne pouvez paramétrer que les fichiers <strong>favretweet.py</strong> ou <strong>config.py</strong>.<br>Si vous avez essayé d'ouvrir l'un de ses fichiers, une erreur est survenue dans sa lecture. Merci de vérifier si le fichier ne contient pas d'erreurs.<br>(Le fichier de configuration doit contenir entre 25 et 30 lignes)"
         p.appendChild(displayAlert)
         delElem('formSub')
     }
