@@ -2,15 +2,24 @@
 
     if (isset($_POST['submit'])) {
         if (isset($_POST['hashtag'])) {
-            $hashtag = properArrCreation('words_to_include', $_POST['hashtag']);
-            $hashtagBan = properArrCreation('words_to_exclude', $_POST['hashtagBan']);
-            $account = properArrCreation('users_to_exclude', $_POST['account']);
-            $theme = properTheme($_POST['theme']);
-            $downloadScript = parseFavRT($hashtag, $hashtagBan, $account, $theme, $_FILES['scriptFile']['tmp_name']);
-            writeFile('tmp/favretweet.py', $downloadScript);
-            downloadFile('tmp/favretweet.py');
-        } else {
-            echo 'TO_DO';
+            $hashtag            = properArrCreation('words_to_include', $_POST['hashtag']);
+            $hashtagBan         = properArrCreation('words_to_exclude', $_POST['hashtagBan']);
+            $account            = properArrCreation('users_to_exclude', $_POST['account']);
+            $theme              = properTheme($_POST['theme']);
+            $downloadScript     = parseFavRT($hashtag, $hashtagBan, $account, $theme, $_FILES['scriptFile']['tmp_name']);
+            $filename           = 'tmp/favretweet.py';
+        } else if (isset($_POST['consumerKey'])){
+            $consumerKey        = properVar('consumer_key', $_POST['consumerKey']);
+            $consumerSecret     = properVar('consumer_secret', $_POST['consumerSecret']);
+            $accessToken        = properVar('access_token', $_POST['accessToken']);
+            $accessTokenSecret  = properVar('access_token_secret', $_POST['accessTokenSecret']);
+            $downloadScript     = parseConfig($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret, $_FILES['scriptFile']['tmp_name']);
+            $filename           = 'tmp/config.py' ;
+        }
+
+        if (isset($downloadScript)) {
+            writeFile($filename, $downloadScript);
+            downloadFile($filename);
         }
 
 
