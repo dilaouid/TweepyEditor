@@ -32,22 +32,29 @@
         return $ret;
     }
 
-    function properVar($varName, $value) {
-        $ret = $varName . ' = "' . $value . '"';
+    function properVar($varName, $value, $quotation = true) {
+        if ($quotation == true)
+            $ret = $varName . ' = "' . $value . '"';
+        else
+            $ret = $varName . ' = ' . $value;
         return $ret;
     }
 
-    function parseFavRT($hashtag, $hashtagBan, $account, $theme, $file) {
+    function parseFavRT($hashtag, $hashtagBan, $account, $theme, $minSec, $maxSec, $file) {
         $i = 0;
         $arrContent = array('');
         $line = null;
         if ($fh = fopen($file, 'r')) {
             while (!feof($fh)) {
-                while (strpos($line, 'number_max_sec') === false) {
+                while (strpos($line, 'number_min_sec') === false) {
                     $arrContent[$i] = fgets($fh);
                     $line = $arrContent[$i];
                     $i++;
                 }
+                $i--;
+                $arrContent[$i++] = $minSec . PHP_EOL;
+                $arrContent[$i++] = $maxSec . PHP_EOL;
+
                 $arrContent[$i++] = PHP_EOL . $account . PHP_EOL;
                 $arrContent[$i++] = $hashtag . PHP_EOL;
                 $arrContent[$i++] = $hashtagBan . PHP_EOL . PHP_EOL;

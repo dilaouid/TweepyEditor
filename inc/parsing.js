@@ -55,7 +55,7 @@
         document.getElementsByName('accessTokenSecret')[0].value  = accessTokenSecret
     }
 
-    function displayFavRT(usersToExclude, wordstoExclude, wordstoInclude, mainTheme) {
+    function displayFavRT(usersToExclude, wordstoExclude, wordstoInclude, mainTheme, minSec, maxSec) {
         delElem('configBot')
         let formDisplay = document.querySelector('#FavRT')
         formDisplay.setAttribute('style', '')
@@ -63,6 +63,9 @@
         fillInput('account', usersToExclude);
         fillInput('hashtagBan', wordstoExclude);
         fillInput('theme', mainTheme);
+
+        document.getElementsByName('minSec')[0].value        = minSec
+        document.getElementsByName('maxSec')[0].value        = maxSec
     }
 
     function epurArray(arr) {
@@ -84,6 +87,18 @@
         displayAlert.innerHTML = "<strong>Le fichier importé est incorrect !</strong><br>Vous ne pouvez paramétrer que les fichiers <strong>favretweet.py</strong> ou <strong>config.py</strong>.<br>Si vous avez essayé d'ouvrir l'un de ses fichiers, une erreur est survenue dans sa lecture. Merci de vérifier si le fichier ne contient pas d'erreurs.<br>(Le fichier de configuration doit contenir entre 25 et 30 lignes)"
         p.appendChild(displayAlert)
         delElem('formSub')
+    }
+
+    function parseVar(pointer, lines) {
+        let i = 0;
+        while (i < lines.length && lines[i].includes(pointer) === false)
+            i++;
+        if (i >= lines.length) {
+            showAlert()
+            return ;
+        }
+        let varSplit = lines[i].split('=');
+        return varSplit[1].trim()
     }
 
     function parseArray(pointer, lines, i) {
@@ -126,6 +141,8 @@
             var accessTokenSecret   = lines[i + 4].split('\"')[1];
             displayConfig(consumerKey, consumerSecret, accessToken, accessTokenSecret)
         } else {
+            var minSec          = parseVar('number_min_sec =', lines)
+            var maxSec          = parseVar('number_max_sec =', lines)
             var usersToExclude  = parseArray('users_to_exclude = [', lines, i)
             if (!usersToExclude)
                 return ;
@@ -134,7 +151,7 @@
             var mainTheme       = parseArray('main([', lines, i)
             if (!usersToExclude || !wordstoInclude || !wordstoExclude || !mainTheme)
                 return ;
-            displayFavRT(usersToExclude, wordstoExclude, wordstoInclude, mainTheme)
+            displayFavRT(usersToExclude, wordstoExclude, wordstoInclude, mainTheme, minSec, maxSec)
         }
     }
 

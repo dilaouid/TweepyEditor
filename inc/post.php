@@ -6,7 +6,11 @@
             $hashtagBan         = properArrCreation('words_to_exclude', $_POST['hashtagBan']);
             $account            = properArrCreation('users_to_exclude', $_POST['account']);
             $theme              = properTheme($_POST['theme']);
-            $downloadScript     = parseFavRT($hashtag, $hashtagBan, $account, $theme, $_FILES['scriptFile']['tmp_name']);
+
+            $minSec             = properVar('number_min_sec', $_POST['minSec'], false);
+            $maxSec             = properVar('number_max_sec', $_POST['maxSec'], false);
+
+            $downloadScript     = parseFavRT($hashtag, $hashtagBan, $account, $theme, $minSec, $maxSec, $_FILES['scriptFile']['tmp_name']);
             $filename           = 'tmp/favretweet.py';
         } else if (isset($_POST['consumerKey'])){
             $consumerKey        = properVar('consumer_key', $_POST['consumerKey']);

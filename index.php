@@ -127,6 +127,40 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="form-row">
+
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body" id="themeCard">
+                                <h4 class="card-title">Nombre mini par secondes</h4>
+                                <h6 class="text-muted card-subtitle mb-2">(35 est une valeur recommandée)</h6>
+                                <div class="form-row row-cols-2" style="margin-bottom: 17px;" id="minSec1">
+                                    <div class="col-8">
+                                        <input class="form-control" type="text" name="minSec">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body" id="themeCard">
+                                <h4 class="card-title">Nombre max par secondes</h4>
+                                <h6 class="text-muted card-subtitle mb-2">(45 est une valeur recommandée)</h6>
+                                <div class="form-row row-cols-2" style="margin-bottom: 17px;" id="maxSec">
+                                    <div class="col-8">
+                                        <input class="form-control" type="text" name="maxSec">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
                 <div class="form-row">
                     <div class="col">
                         <button class="btn btn-link btn-block btn-lg" type="submit" style="margin-top: 18px;" name="submit">
